@@ -1,0 +1,94 @@
+/* ---------------------------------------------------------------------- */
+/* Design tokens                                                          */
+/* Defaults below are used outside Telegram (e.g. in a browser). Inside   */
+/* Telegram, useTelegramWebApp/App.tsx overrides a subset via inline      */
+/* styles on :root using the client's themeParams.                       */
+/* ---------------------------------------------------------------------- */
+:root {
+  --color-bg: #0f1720;
+  --color-surface: #1a2530;
+  --color-surface-raised: #212d3a;
+  --color-border: rgba(237, 242, 244, 0.08);
+
+  --color-text-primary: #edf2f4;
+  --color-text-secondary: #a8b3bd;
+
+  --color-accent: #7dd8c8;
+  --color-accent-secondary: #f2a48b;
+
+  --font-display: 'Fraunces', 'Georgia', serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 28px;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  overscroll-behavior-y: contain;
+}
+
+#root {
+  min-height: 100vh;
+  max-width: 480px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+button {
+  font-family: var(--font-body);
+  cursor: pointer;
+}
+
+/* Respect reduced-motion preferences across the whole app. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Visible keyboard focus everywhere, including inside Telegram's in-app browser. */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}

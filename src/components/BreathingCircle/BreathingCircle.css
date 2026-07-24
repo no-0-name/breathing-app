@@ -1,0 +1,77 @@
+.breathing-circle {
+  position: relative;
+  width: 260px;
+  height: 260px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.breathing-circle__aura {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--accent) 35%, transparent) 0%, transparent 70%);
+  transform: scale(0.7);
+  transition-property: transform;
+  transition-timing-function: ease-in-out;
+}
+
+.breathing-circle__aura--expanded {
+  transform: scale(1.15);
+}
+
+.breathing-circle__core {
+  position: relative;
+  width: 168px;
+  height: 168px;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  background: radial-gradient(
+    circle at 35% 30%,
+    color-mix(in srgb, var(--accent) 55%, var(--color-surface-raised)) 0%,
+    var(--color-surface-raised) 75%
+  );
+  border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+  box-shadow: 0 0 40px color-mix(in srgb, var(--accent) 25%, transparent);
+  transform: scale(0.82);
+  transition-property: transform;
+  transition-timing-function: ease-in-out;
+}
+
+.breathing-circle__core--expanded {
+  transform: scale(1);
+}
+
+.breathing-circle__core--pulsing {
+  animation: breathing-circle-pulse 2.4s ease-in-out infinite;
+}
+
+.breathing-circle__seconds {
+  font-family: var(--font-display);
+  font-size: 40px;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--color-text-primary);
+}
+
+.breathing-circle__phase-label {
+  font-size: 14px;
+  letter-spacing: 0.02em;
+  color: var(--color-text-secondary);
+}
+
+@keyframes breathing-circle-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 40px color-mix(in srgb, var(--accent) 25%, transparent);
+  }
+  50% {
+    box-shadow: 0 0 60px color-mix(in srgb, var(--accent) 40%, transparent);
+  }
+}

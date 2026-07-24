@@ -1,0 +1,62 @@
+/* src/components/TechniqueList/TechniqueList.css (обновлённый) */
+.technique-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  padding: var(--space-6) var(--space-5) var(--space-7);
+}
+
+.technique-list__header-row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+.technique-list__header-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.technique-list__theme-toggle {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.technique-list__eyebrow {
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.technique-list__title {
+  font-size: 28px;
+  line-height: 1.15;
+  padding-bottom: 12px;
+  padding-top: 8px;
+}
+
+.technique-list__subtitle {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}
+
+.technique-list__items {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.technique-list__category {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+/* Responsive adjustments */
+@media (max-width: 400px) {
+  .technique-list__title {
+    font-size: 24px;
+  }
+}

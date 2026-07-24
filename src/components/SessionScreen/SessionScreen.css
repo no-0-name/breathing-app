@@ -1,0 +1,109 @@
+/* src/components/SessionScreen/SessionScreen.css (добавляем стили для кнопки аудио) */
+.session-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-6);
+  padding: var(--space-6) var(--space-5) var(--space-7);
+  flex: 1;
+}
+
+.session-screen__header {
+  align-self: stretch;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.session-screen__header-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.session-screen__header-row .screen-header {
+  flex: 1;
+}
+
+.session-screen__header .screen-header__title {
+  font-size: 22px;
+}
+
+.session-screen__audio-toggle {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface-raised);
+  color: var(--color-text-secondary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  cursor: pointer;
+}
+
+.session-screen__audio-toggle:active {
+  transform: scale(0.92);
+}
+
+.session-screen__audio-toggle--on {
+  border-color: var(--accent, var(--color-accent));
+  color: var(--accent, var(--color-accent));
+}
+
+.session-screen__audio-toggle:hover {
+  border-color: var(--color-text-secondary);
+}
+
+.session-screen__audio-toggle--on:hover {
+  border-color: var(--accent, var(--color-accent));
+}
+
+.session-screen__hint {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  min-height: 20px;
+}
+
+.session-screen__controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+}
+
+.session-screen__spacer {
+  width: 52px;
+}
+
+.session-screen__finished {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  text-align: center;
+}
+
+.session-screen__finished p {
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  max-width: 260px;
+}
+
+.session-screen__restart-button {
+  padding: var(--space-3) var(--space-6);
+  border: none;
+  border-radius: var(--radius-md);
+  background: var(--accent, var(--color-accent));
+  color: var(--color-bg);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.session-screen__restart-button:active {
+  transform: scale(0.98);
+}

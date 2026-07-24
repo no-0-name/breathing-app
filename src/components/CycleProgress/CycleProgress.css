@@ -1,0 +1,55 @@
+/* src/components/CycleProgress/CycleProgress.css */
+.cycle-progress {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.cycle-progress__dots {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.cycle-progress__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-surface-raised);
+  border: 1px solid var(--color-border);
+  transition: background 0.2s ease, border-color 0.2s ease;
+  flex-shrink: 0;
+}
+
+.cycle-progress__dot--done {
+  background: var(--accent, var(--color-accent));
+  border-color: var(--accent, var(--color-accent));
+}
+
+.cycle-progress__dot--partial {
+  background: var(--accent, var(--color-accent));
+  border-color: var(--accent, var(--color-accent));
+  opacity: 0.5;
+}
+
+.cycle-progress__more {
+  font-size: 11px;
+  color: var(--color-text-secondary);
+  padding: 0 4px;
+  font-variant-numeric: tabular-nums;
+}
+
+.cycle-progress__label {
+  margin-left: var(--space-2);
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  font-variant-numeric: tabular-nums;
+  flex-shrink: 0;
+}
