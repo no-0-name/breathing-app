@@ -1,31 +1,44 @@
+/* src/components/BreathingCircle/BreathingCircle.css */
 .breathing-circle {
   position: relative;
-  width: 260px;
-  height: 260px;
+  width: min(280px, 70vw);
+  aspect-ratio: 1;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0 auto;
+  overflow: visible;
 }
 
+/* Аура — мягкое свечение */
 .breathing-circle__aura {
   position: absolute;
-  inset: 0;
+  inset: -40px;
   border-radius: 50%;
-  background: radial-gradient(circle, color-mix(in srgb, var(--accent) 35%, transparent) 0%, transparent 70%);
-  transform: scale(0.7);
-  transition-property: transform;
-  transition-timing-function: ease-in-out;
+  background: radial-gradient(
+    circle at 50% 50%,
+    color-mix(in srgb, var(--accent) 30%, transparent) 0%,
+    color-mix(in srgb, var(--accent) 8%, transparent) 60%,
+    transparent 100%
+  );
+  opacity: 0.6;
+  transform: scale(0.6);
+  transition: transform 0.8s ease-in-out, opacity 0.8s ease-in-out;
+  filter: blur(35px);
+  pointer-events: none;
+  will-change: transform, opacity;
 }
 
 .breathing-circle__aura--expanded {
-  transform: scale(1.15);
+  transform: scale(1.2);
+  opacity: 0.8;
 }
 
+/* Основной круг */
 .breathing-circle__core {
   position: relative;
-  width: 168px;
-  height: 168px;
+  width: min(180px, 45vw);
+  aspect-ratio: 1;
   border-radius: 50%;
   display: flex;
   flex-direction: column;
@@ -37,11 +50,11 @@
     color-mix(in srgb, var(--accent) 55%, var(--color-surface-raised)) 0%,
     var(--color-surface-raised) 75%
   );
-  border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
-  box-shadow: 0 0 40px color-mix(in srgb, var(--accent) 25%, transparent);
-  transform: scale(0.82);
-  transition-property: transform;
-  transition-timing-function: ease-in-out;
+  border: 2px solid color-mix(in srgb, var(--accent) 40%, transparent);
+  transform: scale(0.85);
+  transition: transform 0.8s ease-in-out, box-shadow 0.8s ease-in-out, border-color 0.8s ease-in-out;
+  box-shadow: 0 0 40px color-mix(in srgb, var(--accent) 20%, transparent);
+  will-change: transform, box-shadow;
 }
 
 .breathing-circle__core--expanded {
@@ -54,24 +67,46 @@
 
 .breathing-circle__seconds {
   font-family: var(--font-display);
-  font-size: 40px;
+  font-size: clamp(32px, 10vw, 48px);
   font-weight: 600;
   line-height: 1;
   color: var(--color-text-primary);
+  text-shadow: 0 0 20px color-mix(in srgb, var(--accent) 30%, transparent);
 }
 
 .breathing-circle__phase-label {
-  font-size: 14px;
-  letter-spacing: 0.02em;
+  font-size: clamp(12px, 3vw, 15px);
+  letter-spacing: 0.04em;
   color: var(--color-text-secondary);
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.breathing-circle__phase-icon {
+  font-size: clamp(16px, 4vw, 20px);
+  margin-top: var(--space-1);
+  opacity: 0.6;
 }
 
 @keyframes breathing-circle-pulse {
-  0%,
-  100% {
-    box-shadow: 0 0 40px color-mix(in srgb, var(--accent) 25%, transparent);
+  0%, 100% {
+    box-shadow: 0 0 40px color-mix(in srgb, var(--accent) 20%, transparent);
   }
   50% {
-    box-shadow: 0 0 60px color-mix(in srgb, var(--accent) 40%, transparent);
+    box-shadow: 0 0 70px color-mix(in srgb, var(--accent) 40%, transparent);
+  }
+}
+
+/* ===== МОБИЛЬНАЯ АДАПТАЦИЯ ===== */
+@media (max-width: 480px) {
+  .breathing-circle {
+    width: min(240px, 65vw);
+  }
+  .breathing-circle__core {
+    width: min(150px, 40vw);
+  }
+  .breathing-circle__aura {
+    inset: -30px;
+    filter: blur(25px);
   }
 }

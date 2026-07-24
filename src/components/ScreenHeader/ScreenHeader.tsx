@@ -10,16 +10,14 @@ interface ScreenHeaderProps {
   rightElement?: ReactNode;
 }
 
-/**
- * Shared header for every screen except the technique list: a button back
- * to the list, and the screen's title.
- */
 export function ScreenHeader({ title, onGoHome, rightElement }: ScreenHeaderProps) {
   return (
     <div className="screen-header">
-      <IconButton aria-label="На главный экран" onClick={onGoHome}>
-        <HomeIcon />
-      </IconButton>
+      <div className="screen-header__left">
+        <IconButton aria-label="На главный экран" onClick={onGoHome}>
+          <HomeIcon />
+        </IconButton>
+      </div>
       <h1 className="screen-header__title">{title}</h1>
       <div className="screen-header__right">
         {rightElement || <div className="screen-header__spacer" aria-hidden="true" />}

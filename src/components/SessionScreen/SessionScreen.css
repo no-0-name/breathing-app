@@ -1,11 +1,14 @@
-/* src/components/SessionScreen/SessionScreen.css (добавляем стили для кнопки аудио) */
+/* src/components/SessionScreen/SessionScreen.css */
 .session-screen {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-6);
-  padding: var(--space-6) var(--space-5) var(--space-7);
+  padding: var(--space-3) var(--space-4) var(--space-4);
   flex: 1;
+  min-height: 0;
+  gap: var(--space-3);
+  overflow: visible;
+  position: relative;
 }
 
 .session-screen__header {
@@ -13,7 +16,8 @@
   text-align: center;
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
+  gap: var(--space-1);
+  flex-shrink: 0;
 }
 
 .session-screen__header-row {
@@ -27,7 +31,7 @@
 }
 
 .session-screen__header .screen-header__title {
-  font-size: 22px;
+  font-size: clamp(18px, 5vw, 22px);
 }
 
 .session-screen__audio-toggle {
@@ -54,24 +58,39 @@
   color: var(--accent, var(--color-accent));
 }
 
-.session-screen__audio-toggle:hover {
-  border-color: var(--color-text-secondary);
-}
-
-.session-screen__audio-toggle--on:hover {
-  border-color: var(--accent, var(--color-accent));
-}
-
 .session-screen__hint {
-  font-size: 14px;
+  font-size: clamp(13px, 3.5vw, 14px);
   color: var(--color-text-secondary);
   min-height: 20px;
+  text-align: center;
+  padding: 0 var(--space-2);
 }
 
+/* Центральный блок с кругом */
+.session-screen .breathing-circle {
+  flex: 1;
+  min-height: 200px;
+  max-height: 420px;
+  width: min(280px, 70vw);
+  aspect-ratio: 1;
+  overflow: visible;
+  position: relative;
+}
+
+/* Прогресс циклов — уменьшенный отступ сверху */
+.session-screen .cycle-progress {
+  flex-shrink: 0;
+  margin-top: var(--space-1); /* ← было var(--space-2) */
+}
+
+/* Кнопки управления */
 .session-screen__controls {
   display: flex;
   align-items: center;
   gap: var(--space-5);
+  flex-shrink: 0;
+  padding: var(--space-2) 0;
+  margin-top: auto;
 }
 
 .session-screen__spacer {
@@ -84,12 +103,14 @@
   align-items: center;
   gap: var(--space-4);
   text-align: center;
+  padding: var(--space-4) 0;
+  margin-top: auto;
 }
 
 .session-screen__finished p {
   color: var(--color-text-secondary);
-  font-size: 14px;
-  max-width: 260px;
+  font-size: clamp(13px, 3.5vw, 14px);
+  max-width: 280px;
 }
 
 .session-screen__restart-button {
@@ -98,7 +119,7 @@
   border-radius: var(--radius-md);
   background: var(--accent, var(--color-accent));
   color: var(--color-bg);
-  font-size: 15px;
+  font-size: clamp(14px, 4vw, 15px);
   font-weight: 600;
   cursor: pointer;
   transition: transform 0.15s ease;
@@ -106,4 +127,26 @@
 
 .session-screen__restart-button:active {
   transform: scale(0.98);
+}
+
+/* ===== МОБИЛЬНАЯ АДАПТАЦИЯ ===== */
+@media (max-width: 480px) {
+  .session-screen {
+    padding: var(--space-2) var(--space-3) var(--space-3);
+    gap: var(--space-2);
+  }
+
+  .session-screen__controls {
+    gap: var(--space-4);
+  }
+
+  .session-screen__spacer {
+    width: 40px;
+  }
+
+  .session-screen .breathing-circle {
+    min-height: 150px;
+    max-height: 320px;
+    width: min(240px, 65vw);
+  }
 }

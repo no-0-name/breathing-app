@@ -1,31 +1,40 @@
+/* src/components/TechniqueDetail/TechniqueDetail.css */
 .technique-detail {
   display: flex;
   flex-direction: column;
-  gap: var(--space-5);
-  padding: var(--space-5) var(--space-5) var(--space-7);
+  gap: var(--space-4);
+  padding: var(--space-3) var(--space-2); /* Минимальные боковые отступы (8px) */
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  width: 100%;
+  max-width: 100%;
 }
 
-.technique-detail .screen-header__title {
-  font-size: 26px;
-  text-align: left;
-}
+/* Заголовок внутри ScreenHeader уже центрируется через grid, не трогаем */
 
 .technique-detail__description {
-  font-size: 15px;
-  line-height: 1.6;
+  font-size: clamp(14px, 4vw, 15px);
+  line-height: 1.7;
   color: var(--color-text-secondary);
+  width: 100%;
+  word-wrap: break-word;
+  padding: 0; /* Убираем лишние отступы */
 }
 
 .technique-detail__benefits {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-2);
+  width: 100%;
+  padding: 0;
 }
 
 .technique-detail__section-title {
-  font-size: 15px;
+  font-size: clamp(14px, 4vw, 15px);
   color: var(--color-text-primary);
-  margin-bottom: var(--space-3);
+  margin-bottom: var(--space-2);
+  padding: 0;
 }
 
 .technique-detail__phase-list {
@@ -35,16 +44,18 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
+  width: 100%;
 }
 
 .technique-detail__phase {
   display: flex;
   align-items: flex-start;
   gap: var(--space-4);
-  padding: var(--space-3) var(--space-4);
+  padding: var(--space-3) var(--space-3); /* Уменьшаем отступы внутри фазы */
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
+  width: 100%;
 }
 
 .technique-detail__phase-duration {
@@ -52,22 +63,25 @@
   font-family: var(--font-display);
   font-weight: 600;
   color: var(--accent, var(--color-accent));
+  flex-shrink: 0;
 }
 
 .technique-detail__phase-label {
-  font-size: 14px;
+  font-size: clamp(13px, 3.5vw, 14px);
   font-weight: 500;
   margin-bottom: 2px;
 }
 
 .technique-detail__phase-hint {
-  font-size: 13px;
+  font-size: clamp(12px, 3vw, 13px);
   color: var(--color-text-secondary);
 }
 
 .technique-detail__cycles {
-  font-size: 13px;
+  font-size: clamp(13px, 3.5vw, 14px);
   color: var(--color-text-secondary);
+  width: 100%;
+  padding: 0;
 }
 
 .technique-detail__start-button {
@@ -77,11 +91,26 @@
   border-radius: var(--radius-md);
   background: var(--accent, var(--color-accent));
   color: var(--color-bg);
-  font-size: 16px;
+  font-size: clamp(15px, 4.5vw, 16px);
   font-weight: 600;
   transition: transform 0.15s ease;
+  width: 100%;
+  cursor: pointer;
 }
 
 .technique-detail__start-button:active {
   transform: scale(0.98);
+}
+
+/* ===== МОБИЛЬНАЯ АДАПТАЦИЯ ===== */
+@media (max-width: 480px) {
+  .technique-detail {
+    padding: var(--space-2) var(--space-1); /* Ещё меньше отступов на маленьких экранах */
+    gap: var(--space-3);
+  }
+  
+  .technique-detail__phase {
+    padding: var(--space-2) var(--space-2);
+    gap: var(--space-3);
+  }
 }
