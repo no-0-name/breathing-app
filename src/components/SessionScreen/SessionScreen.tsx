@@ -116,9 +116,10 @@ export function SessionScreen({ technique, onGoHome }: SessionScreenProps) {
         <p className="session-screen__hint">{isFinished ? 'Практика завершена' : currentPhase.hint}</p>
       </div>
 
-      <BreathingCircle phase={currentPhase} secondsLeft={secondsLeftInPhase} status={status} accentColor={accentColor} />
-
-      <CycleProgress completedCycles={completedCycles} targetCycles={technique.recommendedCycles} />
+      <div className="session-screen__body">
+        <BreathingCircle phase={currentPhase} secondsLeft={secondsLeftInPhase} status={status} accentColor={accentColor} />
+        <CycleProgress completedCycles={completedCycles} targetCycles={technique.recommendedCycles} />
+      </div>
 
       {isFinished ? (
         <div className="session-screen__finished">

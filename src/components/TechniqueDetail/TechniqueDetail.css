@@ -11,7 +11,17 @@
   max-width: 100%;
 }
 
-/* Заголовок внутри ScreenHeader уже центрируется через grid, не трогаем */
+/* Заголовок ближе к кнопке «домой»: не центрируем на всю строку, а ставим
+   сразу рядом с кнопкой — на этой странице заголовок обычно длиннее и
+   раньше визуально «убегал» от кнопки к центру экрана. */
+.technique-detail .screen-header {
+  gap: var(--space-1);
+}
+
+.technique-detail .screen-header__title {
+  text-align: left;
+  justify-self: start;
+}
 
 .technique-detail__description {
   font-size: clamp(14px, 4vw, 15px);
