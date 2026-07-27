@@ -1,4 +1,3 @@
-// src/App.tsx (updated to handle theme)
 import { useEffect, useState } from 'react';
 import { BREATHING_TECHNIQUES, getTechniqueById } from './data/techniques';
 import { useTelegramWebApp } from './hooks/useTelegramWebApp';
@@ -6,20 +5,20 @@ import { useTheme } from './hooks/useTheme';
 import { TechniqueList } from './components/TechniqueList/TechniqueList';
 import { TechniqueDetail } from './components/TechniqueDetail/TechniqueDetail';
 import { SessionScreen } from './components/SessionScreen/SessionScreen';
+import { ProfileScreen } from './components/ProfileScreen/ProfileScreen';
 
 type Screen =
   | { name: 'list' }
   | { name: 'detail'; techniqueId: string }
-  | { name: 'session'; techniqueId: string };
+  | { name: 'session'; techniqueId: string }
+  | { name: 'profile' };
 
 export function App() {
   const [screen, setScreen] = useState<Screen>({ name: 'list' });
   const { setBackButton, hapticSelection } = useTelegramWebApp();
-  
-  // Initialize theme (this will read from localStorage if available)
+
   useTheme();
 
-  // Keep Telegram's native back button in sync with our own navigation stack
   useEffect(() => {
     if (screen.name === 'list') {
       setBackButton(false);
@@ -27,7 +26,15 @@ export function App() {
     }
 
     const goBack = () => {
-      setScreen(screen.name === 'session' ? { name: 'detail', techniqueId: screen.techniqueId } : { name: 'list' });
+      if (screen.name === 'session') {
+        setScreen({ name: 'detail', techniqueId: screen.techniqueId });
+      } else if (screen.name === 'detail') {
+        setScreen({ name: 'list' });
+      } else if (screen.name === 'profile') {
+        setScreen({ name: 'list' });
+      } else {
+        setScreen({ name: 'list' });
+      }
     };
 
     setBackButton(true, goBack);
@@ -50,17 +57,48 @@ export function App() {
     setScreen({ name: 'list' });
   };
 
+  const goToProfile = () => {
+    hapticSelection();
+    setScreen({ name: 'profile' });
+  };
+
+  if (screen.name === 'profile') {
+    return <ProfileScreen onGoHome={goHome} />;
+  }
+
   if (screen.name === 'detail') {
     const technique = getTechniqueById(screen.techniqueId);
-    if (!technique) return <TechniqueList techniques={BREATHING_TECHNIQUES} onSelectTechnique={openDetail} />;
+    if (!technique) {
+      return (
+        <TechniqueList
+          techniques={BREATHING_TECHNIQUES}
+          onSelectTechnique={openDetail}
+          onNavigateToProfile={goToProfile}
+        />
+      );
+    }
     return <TechniqueDetail technique={technique} onStart={openSession} onGoHome={goHome} />;
   }
 
   if (screen.name === 'session') {
     const technique = getTechniqueById(screen.techniqueId);
-    if (!technique) return <TechniqueList techniques={BREATHING_TECHNIQUES} onSelectTechnique={openDetail} />;
+    if (!technique) {
+      return (
+        <TechniqueList
+          techniques={BREATHING_TECHNIQUES}
+          onSelectTechnique={openDetail}
+          onNavigateToProfile={goToProfile}
+        />
+      );
+    }
     return <SessionScreen technique={technique} onGoHome={goHome} />;
   }
 
-  return <TechniqueList techniques={BREATHING_TECHNIQUES} onSelectTechnique={openDetail} />;
+  return (
+    <TechniqueList
+      techniques={BREATHING_TECHNIQUES}
+      onSelectTechnique={openDetail}
+      onNavigateToProfile={goToProfile}
+    />
+  );
 }

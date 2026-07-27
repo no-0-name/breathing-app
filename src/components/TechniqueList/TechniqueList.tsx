@@ -1,33 +1,33 @@
-// src/components/TechniqueList/TechniqueList.tsx (исправленный - оборачиваем в try/catch)
 import './TechniqueList.css';
 import type { BreathingTechnique, TechniqueLevel } from '../../types/breathing.types';
 import { TechniqueCard } from '../TechniqueCard/TechniqueCard';
 import { ThemeToggle } from '../ThemeToggle/ThemeToggle';
 import { Achievements } from '../Achievements/Achievements';
+import { IconButton } from '../IconButton/IconButton';
+import { ProfileIcon } from '../IconButton/icons';
 import { useStatistics } from '../../hooks/useStatistics';
 import { useState, useEffect } from 'react';
 
 interface TechniqueListProps {
   techniques: BreathingTechnique[];
   onSelectTechnique: (id: string) => void;
+  onNavigateToProfile: () => void;
 }
 
 const LEVEL_ORDER: TechniqueLevel[] = ['beginner', 'intermediate', 'advanced'];
 
-export function TechniqueList({ techniques, onSelectTechnique }: TechniqueListProps) {
+export function TechniqueList({ techniques, onSelectTechnique, onNavigateToProfile }: TechniqueListProps) {
   const { stats } = useStatistics();
   const [masteryLevels, setMasteryLevels] = useState<Record<string, number>>({});
 
   useEffect(() => {
     try {
-      // Calculate mastery for each technique
       const mastery: Record<string, number> = {};
       techniques.forEach(tech => {
         const sessions = stats.sessions.filter(s => s.techniqueId === tech.id);
         if (sessions.length === 0) {
           mastery[tech.id] = 0;
         } else {
-          // 10 sessions = 100% mastery
           const sessionsNeeded = 10;
           mastery[tech.id] = Math.min((sessions.length / sessionsNeeded) * 100, 100);
         }
@@ -56,11 +56,19 @@ export function TechniqueList({ techniques, onSelectTechnique }: TechniqueListPr
               Несколько минут осознанного дыхания помогают снять стресс, успокоиться или сосредоточиться.
             </p>
           </div>
-          <ThemeToggle className="technique-list__theme-toggle" />
+          <div style={{ display: 'flex', gap: 'var(--space-2)', alignItems: 'center' }}>
+            <IconButton
+              aria-label="Профиль и статистика"
+              onClick={onNavigateToProfile}
+              variant="ghost"
+            >
+              <ProfileIcon />
+            </IconButton>
+            <ThemeToggle className="technique-list__theme-toggle" />
+          </div>
         </div>
       </header>
 
-      {/* Достижения */}
       <Achievements />
 
       <div className="technique-list__items">
@@ -71,9 +79,9 @@ export function TechniqueList({ techniques, onSelectTechnique }: TechniqueListPr
           return (
             <div key={level} className="technique-list__category">
               {levelTechniques.map((technique) => (
-                <TechniqueCard 
-                  key={technique.id} 
-                  technique={technique} 
+                <TechniqueCard
+                  key={technique.id}
+                  technique={technique}
                   onSelect={onSelectTechnique}
                   masteryLevel={masteryLevels[technique.id] || 0}
                 />
