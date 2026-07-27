@@ -50,6 +50,11 @@
   .screen-header__spacer {
     width: 40px;
   }
+
+  .screen-header__left .icon-button,
+  .screen-header__right .icon-button {
+    --icon-button-size: 40px;
+  }
   
   .screen-header__title {
     font-size: clamp(16px, 4.5vw, 20px);

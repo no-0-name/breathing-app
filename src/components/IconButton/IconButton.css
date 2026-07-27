@@ -1,6 +1,9 @@
 .icon-button {
-  width: 52px;
-  height: 52px;
+  width: var(--icon-button-size, 52px);
+  height: var(--icon-button-size, 52px);
+  min-width: var(--icon-button-size, 52px);
+  min-height: var(--icon-button-size, 52px);
+  flex-shrink: 0;
   border-radius: 50%;
   display: inline-flex;
   align-items: center;

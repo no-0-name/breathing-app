@@ -12,7 +12,7 @@ export function useAudioFeedback() {
     if (!audioContextRef.current) {
       try {
         audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
-      } catch (error) {
+      } catch {
         console.warn('Web Audio API not supported');
         return null;
       }
@@ -39,7 +39,7 @@ export function useAudioFeedback() {
       
       oscillator.start(ctx.currentTime);
       oscillator.stop(ctx.currentTime + duration);
-    } catch (error) {
+    } catch {
       // Silently fail - audio is not critical
     }
   }, [getAudioContext]);
