@@ -2,8 +2,8 @@
 .technique-detail {
   display: flex;
   flex-direction: column;
-  gap: var(--space-4);
-  padding: var(--space-3) var(--space-2); /* Минимальные боковые отступы (8px) */
+  gap: var(--space-5);
+  padding: var(--space-4) var(--space-3);
   flex: 1;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
@@ -23,13 +23,29 @@
   justify-self: start;
 }
 
+/* ===== Вступление: акцентная полоса + описание ===== */
+.technique-detail__intro {
+  display: flex;
+  gap: var(--space-4);
+}
+
+.technique-detail__intro-bar {
+  flex-shrink: 0;
+  width: 3px;
+  border-radius: 999px;
+  background: linear-gradient(
+    180deg,
+    var(--accent, var(--color-accent)) 0%,
+    color-mix(in srgb, var(--accent, var(--color-accent)) 15%, transparent) 100%
+  );
+}
+
 .technique-detail__description {
   font-size: clamp(14px, 4vw, 15px);
   line-height: 1.7;
   color: var(--color-text-secondary);
   width: 100%;
   word-wrap: break-word;
-  padding: 0; /* Убираем лишние отступы */
 }
 
 .technique-detail__benefits {
@@ -37,65 +53,147 @@
   flex-wrap: wrap;
   gap: var(--space-2);
   width: 100%;
-  padding: 0;
+}
+
+.technique-detail__benefits .badge {
+  transition: transform 0.15s ease;
+}
+
+.technique-detail__benefits .badge:hover {
+  transform: translateY(-1px);
 }
 
 .technique-detail__section-title {
   font-size: clamp(14px, 4vw, 15px);
   color: var(--color-text-primary);
-  margin-bottom: var(--space-2);
-  padding: 0;
+  margin-bottom: var(--space-3);
 }
 
+/* ===== Схема цикла: дыхательный «таймлайн» ===== */
 .technique-detail__phase-list {
   list-style: none;
   margin: 0;
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: var(--space-3);
+  gap: var(--space-4);
   width: 100%;
 }
 
 .technique-detail__phase {
+  position: relative;
   display: flex;
   align-items: flex-start;
-  gap: var(--space-4);
-  padding: var(--space-3) var(--space-3); /* Уменьшаем отступы внутри фазы */
+  gap: var(--space-3);
+}
+
+/* Линия соединяет точку этой фазы со следующей — length рассчитан от
+   фактической высоты элемента, поэтому не «плывёт» на переносе текста. */
+.technique-detail__phase:not(:last-child)::before {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: 9px;
+  width: 2px;
+  height: calc(100% + var(--space-4));
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--accent, var(--color-accent)) 45%, transparent),
+    color-mix(in srgb, var(--accent, var(--color-accent)) 12%, transparent)
+  );
+}
+
+.technique-detail__phase-marker {
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+  width: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.technique-detail__phase-dot {
+  width: 8px;
+  height: 8px;
+  margin-top: 6px;
+  border-radius: 50%;
+  background: var(--accent, var(--color-accent));
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent, var(--color-accent)) 18%, transparent);
+}
+
+.technique-detail__phase-content {
+  flex: 1;
+  min-width: 0;
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
-  width: 100%;
+  padding: var(--space-3);
+  transition: border-color 0.2s ease, transform 0.15s ease;
 }
 
-.technique-detail__phase-duration {
-  min-width: 40px;
-  font-family: var(--font-display);
-  font-weight: 600;
-  color: var(--accent, var(--color-accent));
-  flex-shrink: 0;
+.technique-detail__phase-content:hover {
+  border-color: color-mix(in srgb, var(--accent, var(--color-accent)) 45%, var(--color-border));
+  transform: translateX(2px);
+}
+
+.technique-detail__phase-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2);
+  margin-bottom: 2px;
 }
 
 .technique-detail__phase-label {
   font-size: clamp(13px, 3.5vw, 14px);
-  font-weight: 500;
-  margin-bottom: 2px;
+  font-weight: 600;
+}
+
+.technique-detail__phase-duration {
+  flex-shrink: 0;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--accent, var(--color-accent));
 }
 
 .technique-detail__phase-hint {
   font-size: clamp(12px, 3vw, 13px);
   color: var(--color-text-secondary);
+  line-height: 1.5;
+}
+
+/* ===== Подвал: чип с циклами + кнопка старта ===== */
+.technique-detail__footer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-3);
+  margin-top: var(--space-1);
 }
 
 .technique-detail__cycles {
-  font-size: clamp(13px, 3.5vw, 14px);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border-radius: 999px;
+  background: var(--color-surface-raised);
+  border: 1px solid var(--color-border);
   color: var(--color-text-secondary);
-  width: 100%;
-  padding: 0;
+  font-size: clamp(12px, 3.5vw, 13px);
+}
+
+.technique-detail__cycles svg {
+  color: var(--accent, var(--color-accent));
+  flex-shrink: 0;
 }
 
 .technique-detail__start-button {
-  margin-top: var(--space-2);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
   padding: var(--space-4);
   border: none;
   border-radius: var(--radius-md);
@@ -103,24 +201,77 @@
   color: var(--color-bg);
   font-size: clamp(15px, 4.5vw, 16px);
   font-weight: 600;
-  transition: transform 0.15s ease;
+  transition: transform 0.15s ease, box-shadow 0.2s ease;
   width: 100%;
   cursor: pointer;
+  box-shadow: 0 10px 24px -14px color-mix(in srgb, var(--accent, var(--color-accent)) 70%, transparent);
+}
+
+.technique-detail__start-button svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
 }
 
 .technique-detail__start-button:active {
   transform: scale(0.98);
 }
 
+/* ===== Плавное появление контента при открытии страницы ===== */
+@keyframes technique-detail-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.technique-detail > .screen-header,
+.technique-detail__intro,
+.technique-detail__benefits,
+.technique-detail__phases,
+.technique-detail__footer {
+  animation: technique-detail-fade-in 480ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.technique-detail > .screen-header {
+  animation-delay: 0ms;
+}
+.technique-detail__intro {
+  animation-delay: 60ms;
+}
+.technique-detail__benefits {
+  animation-delay: 120ms;
+}
+.technique-detail__phases {
+  animation-delay: 180ms;
+}
+.technique-detail__footer {
+  animation-delay: 260ms;
+}
+
+.technique-detail__phase {
+  animation: technique-detail-fade-in 420ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.technique-detail__phase:nth-child(1) { animation-delay: 220ms; }
+.technique-detail__phase:nth-child(2) { animation-delay: 280ms; }
+.technique-detail__phase:nth-child(3) { animation-delay: 340ms; }
+.technique-detail__phase:nth-child(4) { animation-delay: 400ms; }
+.technique-detail__phase:nth-child(5) { animation-delay: 460ms; }
+.technique-detail__phase:nth-child(6) { animation-delay: 520ms; }
+
 /* ===== МОБИЛЬНАЯ АДАПТАЦИЯ ===== */
 @media (max-width: 480px) {
   .technique-detail {
-    padding: var(--space-2) var(--space-1); /* Ещё меньше отступов на маленьких экранах */
-    gap: var(--space-3);
+    padding: var(--space-3) var(--space-2);
+    gap: var(--space-4);
   }
-  
-  .technique-detail__phase {
-    padding: var(--space-2) var(--space-2);
-    gap: var(--space-3);
+
+  .technique-detail__phase-content {
+    padding: var(--space-2) var(--space-3);
   }
 }
