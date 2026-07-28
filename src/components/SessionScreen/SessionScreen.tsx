@@ -29,8 +29,7 @@ export function SessionScreen({ technique, onGoHome }: SessionScreenProps) {
   const { status, completedCycles, secondsLeftInPhase, currentPhase, start, pause, reset } = useBreathingCycle({
     phases: technique.phases,
     targetCycles: technique.recommendedCycles,
-    onPhaseChange: () => {
-    },
+    onPhaseChange: () => {},
     onStart: () => {
       console.log('[Haptic] Session started');
       hapticImpact('medium');
@@ -38,7 +37,6 @@ export function SessionScreen({ technique, onGoHome }: SessionScreenProps) {
     onFinished: () => {
       console.log('[Haptic] Session finished');
       hapticSuccess();
-      
       const totalDuration = technique.phases.reduce((acc, p) => acc + p.durationSec, 0) * technique.recommendedCycles;
       addSession({
         techniqueId: technique.id,
@@ -47,7 +45,6 @@ export function SessionScreen({ technique, onGoHome }: SessionScreenProps) {
         durationSeconds: totalDuration,
         status: 'completed',
       });
-      
       console.log('[Session] Completed!');
     },
     enableAudio,
@@ -124,13 +121,18 @@ export function SessionScreen({ technique, onGoHome }: SessionScreenProps) {
         </div>
       ) : (
         <div className="session-screen__controls">
-          <IconButton aria-label="Сбросить" onClick={reset}>
+          <IconButton
+            aria-label="Сбросить"
+            onClick={reset}
+            style={{ '--icon-button-size': '52px' } as React.CSSProperties}
+          >
             <ResetIcon />
           </IconButton>
           <IconButton
             aria-label={isRunning ? 'Пауза' : 'Начать'}
             variant="solid"
             onClick={isRunning ? pause : start}
+            style={{ '--icon-button-size': '52px' } as React.CSSProperties}
           >
             {isRunning ? <PauseIcon /> : <PlayIcon />}
           </IconButton>
