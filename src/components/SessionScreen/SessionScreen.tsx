@@ -1,4 +1,3 @@
-// src/components/SessionScreen/SessionScreen.tsx
 import './SessionScreen.css';
 import type { BreathingTechnique } from '../../types/breathing.types';
 import { getLevelColor } from '../../data/levels';
@@ -30,22 +29,16 @@ export function SessionScreen({ technique, onGoHome }: SessionScreenProps) {
   const { status, completedCycles, secondsLeftInPhase, currentPhase, start, pause, reset } = useBreathingCycle({
     phases: technique.phases,
     targetCycles: technique.recommendedCycles,
-    // Убираем вибрацию на каждую смену фазы
     onPhaseChange: () => {
-      // Только аудио, без вибрации
-      // Аудио уже включено в хуке useBreathingCycle
     },
     onStart: () => {
-      // Вибрация в начале практики
       console.log('[Haptic] Session started');
       hapticImpact('medium');
     },
     onFinished: () => {
-      // Вибрация в конце практики
       console.log('[Haptic] Session finished');
       hapticSuccess();
       
-      // Сохраняем сессию в статистику
       const totalDuration = technique.phases.reduce((acc, p) => acc + p.durationSec, 0) * technique.recommendedCycles;
       addSession({
         techniqueId: technique.id,

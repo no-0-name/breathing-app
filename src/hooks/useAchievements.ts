@@ -1,4 +1,3 @@
-// src/hooks/useAchievements.ts
 import { useState, useEffect, useCallback } from 'react';
 
 export interface Achievement {
@@ -24,7 +23,6 @@ const ACHIEVEMENTS_KEY = 'breathing_achievements';
 
 const getAchievementDefinitions = () => {
   return [
-    // ============ СЕССИИ ============
     {
       id: 'first_session',
       title: 'Первый шаг',
@@ -66,7 +64,6 @@ const getAchievementDefinitions = () => {
       category: 'sessions' as const,
     },
 
-    // ============ СТРИКИ ============
     {
       id: 'streak_3',
       title: 'Первые шаги',
@@ -92,7 +89,6 @@ const getAchievementDefinitions = () => {
       category: 'streak' as const,
     },
 
-    // ============ ИССЛЕДОВАНИЕ ============
     {
       id: 'all_beginner',
       title: 'Начинающий исследователь',
@@ -134,7 +130,6 @@ export function useAchievements() {
   const [totalAchievements, setTotalAchievements] = useState(0);
   const [isInitialized, setIsInitialized] = useState(false);
 
-  // Инициализация
   useEffect(() => {
     try {
       const definitions = getAchievementDefinitions();
@@ -151,7 +146,6 @@ export function useAchievements() {
         }
       }
 
-      // Merge with definitions
       const merged = definitions.map(def => {
         const existing = parsedData.find((a: Achievement) => a.id === def.id);
         return {
@@ -199,20 +193,16 @@ export function useAchievements() {
   }, []);
 
   const checkAchievements = useCallback((stats: SessionStats) => {
-    // ===== СЕССИИ =====
     updateAchievement('first_session', stats.totalSessions);
     updateAchievement('ten_sessions', stats.totalSessions);
     updateAchievement('twenty_five_sessions', stats.totalSessions);
     updateAchievement('fifty_sessions', stats.totalSessions);
     updateAchievement('hundred_sessions', stats.totalSessions);
 
-    // ===== СТРИКИ =====
     updateAchievement('streak_3', stats.streakDays);
     updateAchievement('streak_7', stats.streakDays);
     updateAchievement('streak_30', stats.streakDays);
 
-    // ===== ИССЛЕДОВАНИЕ =====
-    // Списки техник по уровням (обновлены для 30 техник)
     const beginnerTechniques = [
       'box-breathing',
       'coherent-breathing',

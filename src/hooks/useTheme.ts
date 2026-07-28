@@ -1,16 +1,10 @@
-// src/hooks/useTheme.ts (упрощаем до двух режимов)
 import { useEffect, useState } from 'react';
 
 type Theme = 'light' | 'dark';
 
-/**
- * Hook for managing theme preferences.
- * Works both inside and outside Telegram.
- */
 export function useTheme() {
   const [theme, setTheme] = useState<Theme>(() => {
     const stored = localStorage.getItem('theme-preference') as Theme | null;
-    // Check system preference if no stored value
     if (!stored) {
       return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
     }

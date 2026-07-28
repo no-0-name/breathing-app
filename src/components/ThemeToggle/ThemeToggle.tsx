@@ -1,4 +1,3 @@
-// src/components/ThemeToggle/ThemeToggle.tsx
 import './ThemeToggle.css';
 import { useTheme } from '../../hooks/useTheme';
 
@@ -6,14 +5,10 @@ interface ThemeToggleProps {
   className?: string;
 }
 
-/**
- * A simple theme toggle button that cycles between light and dark modes.
- */
 export function ThemeToggle({ className = '' }: ThemeToggleProps) {
   const { theme, setTheme } = useTheme();
 
   const toggleTheme = () => {
-    // Toggle between light and dark only (no system)
     setTheme(theme === 'light' ? 'dark' : 'light');
   };
 
@@ -35,7 +30,6 @@ export function ThemeToggle({ className = '' }: ThemeToggleProps) {
         aria-hidden="true"
       >
         {isLight ? (
-          // Moon icon
           <path
             d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
             stroke="currentColor"
@@ -44,7 +38,6 @@ export function ThemeToggle({ className = '' }: ThemeToggleProps) {
             strokeLinejoin="round"
           />
         ) : (
-          // Sun icon
           <>
             <circle cx="12" cy="12" r="5" stroke="currentColor" strokeWidth="2" />
             <path

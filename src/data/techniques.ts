@@ -1,13 +1,7 @@
-// src/data/techniques.ts
 import type { BreathingTechnique } from '../types/breathing.types';
 
-/**
- * Catalogue of available breathing techniques.
- * Open/Closed Principle: adding a new technique means adding a new entry
- * here, not touching any component or hook logic.
- */
+
 export const BREATHING_TECHNIQUES: BreathingTechnique[] = [
-  // ============ BEGINNER (8 техник) ============
   {
     id: 'box-breathing',
     title: 'Квадратное дыхание',
@@ -139,7 +133,6 @@ export const BREATHING_TECHNIQUES: BreathingTechnique[] = [
     ],
   },
 
-  // ============ INTERMEDIATE (8 техник) ============
   {
     id: '4-7-8',
     title: 'Дыхание 4-7-8',
@@ -278,7 +271,6 @@ export const BREATHING_TECHNIQUES: BreathingTechnique[] = [
     ],
   },
 
-  // ============ ADVANCED (10 техник) ============
   {
     id: 'alternate-nostril',
     title: 'Попеременное дыхание через ноздри',

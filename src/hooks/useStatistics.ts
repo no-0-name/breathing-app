@@ -1,4 +1,3 @@
-// src/hooks/useStatistics.ts (исправленный)
 import { useState } from 'react';
 import { useAchievements } from './useAchievements';
 
@@ -23,7 +22,6 @@ interface Statistics {
 
 const STORAGE_KEY = 'breathing_stats';
 
-// Выносим функцию за пределы хука
 const getDefaultStats = (): Statistics => ({
   sessions: [],
   totalSessions: 0,
@@ -35,34 +33,52 @@ const getDefaultStats = (): Statistics => ({
 
 const calculateStreak = (sessions: SessionRecord[]): number => {
   if (sessions.length === 0) return 0;
-  
-  const sorted = [...sessions].sort((a, b) => b.timestamp - a.timestamp);
+
+  const uniqueDates = new Set<string>();
+  sessions.forEach(s => {
+    const d = new Date(s.timestamp);
+    d.setHours(0, 0, 0, 0);
+    uniqueDates.add(d.toISOString().split('T')[0]);
+  });
+
+  const dates = Array.from(uniqueDates).sort((a, b) => b.localeCompare(a));
+
   const today = new Date();
   today.setHours(0, 0, 0, 0);
-  
+  const todayStr = today.toISOString().split('T')[0];
+
+  const yesterday = new Date(today);
+  yesterday.setDate(yesterday.getDate() - 1);
+  const yesterdayStr = yesterday.toISOString().split('T')[0];
+
+  if (!dates.includes(todayStr) && !dates.includes(yesterdayStr)) {
+    return 0;
+  }
+
+  let startDateStr = todayStr;
+  if (!dates.includes(todayStr)) {
+    startDateStr = yesterdayStr;
+  }
+
   let streak = 0;
-  let currentDate = new Date(today);
-  
-  for (const session of sorted) {
-    const sessionDate = new Date(session.timestamp);
-    sessionDate.setHours(0, 0, 0, 0);
-    
-    const diffDays = Math.floor((today.getTime() - sessionDate.getTime()) / (1000 * 60 * 60 * 24));
-    
-    if (diffDays === streak) {
+  let currentDate = new Date(startDateStr);
+
+  while (true) {
+    const dateStr = currentDate.toISOString().split('T')[0];
+    if (dates.includes(dateStr)) {
       streak++;
       currentDate.setDate(currentDate.getDate() - 1);
-    } else if (diffDays > streak) {
+    } else {
       break;
     }
   }
-  
+
   return streak;
 };
 
 export function useStatistics() {
   const { checkAchievements } = useAchievements();
-  
+
   const [stats, setStats] = useState<Statistics>(() => {
     try {
       const stored = localStorage.getItem(STORAGE_KEY);
@@ -89,19 +105,17 @@ export function useStatistics() {
       const totalSessions = sessions.length;
       const totalMinutes = sessions.reduce((acc, s) => acc + Math.ceil(s.durationSeconds / 60), 0);
       const lastSessionDate = newSession.timestamp;
-      
-      // Find favorite technique
+
       const techniqueCount: Record<string, number> = {};
       const techniqueMastery: Record<string, number> = {};
       const uniqueTechniques = new Set<string>();
-      
       sessions.forEach(s => {
         techniqueCount[s.techniqueId] = (techniqueCount[s.techniqueId] || 0) + 1;
         techniqueMastery[s.techniqueId] = (techniqueMastery[s.techniqueId] || 0) + 1;
         uniqueTechniques.add(s.techniqueId);
       });
-      
-      let favoriteTechnique = null;
+
+      let favoriteTechnique: string | null = null;
       let maxCount = 0;
       for (const [id, count] of Object.entries(techniqueCount)) {
         if (count > maxCount) {
@@ -109,10 +123,10 @@ export function useStatistics() {
           favoriteTechnique = id;
         }
       }
-      
+
       const streakDays = calculateStreak(sessions);
-      
-      const newStats = {
+
+      const newStats: Statistics = {
         sessions,
         totalSessions,
         totalMinutes,
@@ -120,14 +134,13 @@ export function useStatistics() {
         streakDays,
         favoriteTechnique,
       };
-      
+
       try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(newStats));
       } catch (error) {
         console.error('Failed to save statistics:', error);
       }
-      
-      // Check achievements after saving
+
       try {
         checkAchievements({
           totalSessions,
@@ -138,7 +151,7 @@ export function useStatistics() {
       } catch (error) {
         console.error('Failed to check achievements:', error);
       }
-      
+
       return newStats;
     });
   };

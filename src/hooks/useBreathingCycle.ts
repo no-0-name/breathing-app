@@ -1,4 +1,3 @@
-// src/hooks/useBreathingCycle.ts
 import { useCallback, useEffect, useMemo, useReducer, useRef, useState } from 'react';
 import type { BreathingCycleState, BreathingPhase, SessionStatus } from '../types/breathing.types';
 import { useAudioFeedback } from './useAudioFeedback';
@@ -8,13 +7,9 @@ const TICK_INTERVAL_MS = 100;
 interface UseBreathingCycleOptions {
   phases: BreathingPhase[];
   targetCycles: number;
-  /** Called when a new phase starts (for haptics/sound) */
   onPhaseChange?: (phase: BreathingPhase) => void;
-  /** Called once when the session finishes */
   onFinished?: () => void;
-  /** Called when the session starts */
   onStart?: () => void;
-  /** Enable audio feedback for each breath */
   enableAudio?: boolean;
 }
 
@@ -61,7 +56,6 @@ function createMachineReducer(phaseCount: number, targetCycles: number) {
         const nextPhaseIndex = isLastPhaseOfCycle ? 0 : state.currentPhaseIndex + 1;
         const completedCycles = isLastPhaseOfCycle ? state.completedCycles + 1 : state.completedCycles;
 
-        // Проверяем, завершена ли сессия
         if (isLastPhaseOfCycle && completedCycles >= targetCycles) {
           return { status: 'finished', currentPhaseIndex: state.currentPhaseIndex, completedCycles };
         }
@@ -141,7 +135,6 @@ export function useBreathingCycle({
     }
   }, [machine.currentPhaseIndex, machine.completedCycles, phases.length, targetCycles]);
 
-  // Play audio when phase changes
   useEffect(() => {
     if (machine.status !== 'running') return;
     
@@ -152,10 +145,8 @@ export function useBreathingCycle({
     const phase = phases[currentIndex];
     if (!phase) return;
 
-    // Вызываем onPhaseChange для аудио (но не для вибрации!)
     onPhaseChangeRef.current?.(phase);
 
-    // Play audio feedback
     if (enableAudio) {
       switch (phase.kind) {
         case 'inhale':
@@ -172,7 +163,6 @@ export function useBreathingCycle({
     }
   }, [machine.status, machine.currentPhaseIndex, phases, enableAudio, audio]);
 
-  // (Re)arm the countdown
   useEffect(() => {
     if (machine.status !== 'running') return;
 
@@ -190,7 +180,6 @@ export function useBreathingCycle({
     return clearTimer;
   }, [machine.status, machine.currentPhaseIndex, phases, clearTimer, tick]);
 
-  // Fire completion callback when session finishes
   useEffect(() => {
     if (machine.status === 'finished') {
       clearTimer();
@@ -198,7 +187,6 @@ export function useBreathingCycle({
     }
   }, [machine.status, clearTimer]);
 
-  // Cleanup on unmount
   useEffect(() => clearTimer, [clearTimer]);
 
   const start = useCallback(() => {
@@ -208,7 +196,6 @@ export function useBreathingCycle({
     
     dispatch({ type: 'START' });
     
-    // Вызываем onStart при начале сессии (для вибрации)
     if (machine.status === 'idle' || machine.status === 'paused') {
       onStartRef.current?.();
     }

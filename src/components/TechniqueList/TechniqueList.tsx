@@ -5,8 +5,6 @@ import { ThemeToggle } from '../ThemeToggle/ThemeToggle';
 import { Achievements } from '../Achievements/Achievements';
 import { IconButton } from '../IconButton/IconButton';
 import { ProfileIcon } from '../IconButton/icons';
-import { useStatistics } from '../../hooks/useStatistics';
-import { useState, useEffect } from 'react';
 
 interface TechniqueListProps {
   techniques: BreathingTechnique[];
@@ -17,27 +15,6 @@ interface TechniqueListProps {
 const LEVEL_ORDER: TechniqueLevel[] = ['beginner', 'intermediate', 'advanced'];
 
 export function TechniqueList({ techniques, onSelectTechnique, onNavigateToProfile }: TechniqueListProps) {
-  const { stats } = useStatistics();
-  const [masteryLevels, setMasteryLevels] = useState<Record<string, number>>({});
-
-  useEffect(() => {
-    try {
-      const mastery: Record<string, number> = {};
-      techniques.forEach(tech => {
-        const sessions = stats.sessions.filter(s => s.techniqueId === tech.id);
-        if (sessions.length === 0) {
-          mastery[tech.id] = 0;
-        } else {
-          const sessionsNeeded = 10;
-          mastery[tech.id] = Math.min((sessions.length / sessionsNeeded) * 100, 100);
-        }
-      });
-      setMasteryLevels(mastery);
-    } catch (error) {
-      console.error('Failed to calculate mastery:', error);
-    }
-  }, [stats.sessions, techniques]);
-
   const groupedTechniques = techniques.reduce((acc, technique) => {
     const level = technique.level;
     if (!acc[level]) acc[level] = [];
@@ -61,6 +38,7 @@ export function TechniqueList({ techniques, onSelectTechnique, onNavigateToProfi
               aria-label="Профиль и статистика"
               onClick={onNavigateToProfile}
               variant="ghost"
+              style={{ '--icon-button-size': '40px' } as React.CSSProperties}
             >
               <ProfileIcon />
             </IconButton>
@@ -83,7 +61,6 @@ export function TechniqueList({ techniques, onSelectTechnique, onNavigateToProfi
                   key={technique.id}
                   technique={technique}
                   onSelect={onSelectTechnique}
-                  masteryLevel={masteryLevels[technique.id] || 0}
                 />
               ))}
             </div>

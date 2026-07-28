@@ -1,4 +1,3 @@
-// src/components/ProfileScreen/ProfileScreen.tsx (полная версия с достижениями)
 import './ProfileScreen.css';
 import { useStatistics } from '../../hooks/useStatistics';
 import { useAchievements } from '../../hooks/useAchievements';
@@ -20,14 +19,12 @@ export function ProfileScreen({ onGoHome }: ProfileScreenProps) {
     favoriteTechnique,
   } = stats;
 
-  // Находим название любимой техники
   let favoriteName = '—';
   if (favoriteTechnique) {
     const tech = getTechniqueById(favoriteTechnique);
     favoriteName = tech?.title || favoriteTechnique;
   }
 
-  // Берём последние 5 сессий
   const recentSessions = [...sessions]
     .sort((a, b) => b.timestamp - a.timestamp)
     .slice(0, 5);

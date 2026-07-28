@@ -1,14 +1,14 @@
-/* src/components/SessionScreen/SessionScreen.css */
 .session-screen {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: var(--space-3) var(--space-4) var(--space-4);
+  padding: var(--space-4) var(--space-4) var(--space-6);
   flex: 1;
   min-height: 0;
   gap: var(--space-3);
   overflow: visible;
   position: relative;
+  padding-bottom: calc(var(--space-6) + env(safe-area-inset-bottom));
 }
 
 .session-screen__header {
@@ -66,11 +66,6 @@
   padding: 0 var(--space-2);
 }
 
-/* Круг и счётчик циклов раньше стояли сразу под шапкой, из-за чего весь
-   контент собирался вверху экрана, а низ пустовал. Теперь это отдельный
-   растягивающийся блок, который занимает всё свободное место между шапкой
-   и кнопками и центрирует в нём круг и прогресс — экран выглядит
-   заполненным на любой высоте. */
 .session-screen__body {
   flex: 1;
   min-height: 0;
@@ -82,7 +77,6 @@
   gap: var(--space-4);
 }
 
-/* Центральный блок с кругом */
 .session-screen .breathing-circle {
   flex-shrink: 0;
   width: min(280px, 70vw);
@@ -97,14 +91,13 @@
   flex-shrink: 0;
 }
 
-/* Кнопки управления */
 .session-screen__controls {
   display: flex;
   align-items: center;
   gap: var(--space-5);
   flex-shrink: 0;
   padding: var(--space-2) 0;
-  margin-top: auto;
+  margin-top: 0;
 }
 
 .session-screen__spacer {
@@ -143,25 +136,25 @@
   transform: scale(0.98);
 }
 
-/* ===== МОБИЛЬНАЯ АДАПТАЦИЯ ===== */
 @media (max-width: 480px) {
   .session-screen {
-    padding: var(--space-2) var(--space-3) var(--space-3);
+    padding: var(--space-3) var(--space-3) var(--space-5);
+    padding-bottom: calc(var(--space-5) + env(safe-area-inset-bottom));
     gap: var(--space-2);
   }
 
-.session-screen__controls {
-  display: flex;
-  align-items: center;
-  gap: var(--space-5);
-  flex-shrink: 0;
-  padding: var(--space-2) 0 var(--space-4); /* Добавили нижний отступ */
-  margin-top: var(--space-3); /* Вместо auto — фиксированный отступ */
-}
+  .session-screen__controls {
+    display: flex;
+    align-items: center;
+    gap: var(--space-5);
+    flex-shrink: 0;
+    padding: var(--space-2) 0;
+    margin-top: 0;
+  }
 
-.session-screen__spacer {
-  width: 52px;
-}
+  .session-screen__spacer {
+    width: 52px;
+  }
 
   .session-screen .breathing-circle {
     min-height: 150px;

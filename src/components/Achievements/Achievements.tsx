@@ -1,4 +1,3 @@
-// src/components/Achievements/Achievements.tsx (исправленный)
 import './Achievements.css';
 import { useAchievements } from '../../hooks/useAchievements';
 import { useState } from 'react';
@@ -15,7 +14,6 @@ export function Achievements() {
 
   const [showAll, setShowAll] = useState(false);
 
-  // Показываем заглушку пока инициализируется
   if (!isInitialized) {
     return (
       <div className="achievements">
@@ -57,41 +55,44 @@ export function Achievements() {
         </div>
       ) : (
         <div className="achievements__grid">
-          {displayedAchievements.map((achievement) => (
-            <div 
-              key={achievement.id} 
-              className={`achievement-card ${achievement.unlocked ? 'achievement-card--unlocked' : 'achievement-card--locked'}`}
-            >
-              <div className="achievement-card__icon">
-                {achievement.icon}
-                {!achievement.unlocked && (
-                  <div className="achievement-card__lock">🔒</div>
-                )}
-              </div>
-              <div className="achievement-card__info">
-                <div className="achievement-card__title">{achievement.title}</div>
-                <div className="achievement-card__description">{achievement.description}</div>
-                {!achievement.unlocked && (
-                  <div className="achievement-card__progress">
-                    <div className="achievement-card__progress-bar">
-                      <div 
-                        className="achievement-card__progress-fill" 
-                        style={{ width: `${achievement.progress}%` }}
-                      />
+          {displayedAchievements.map((achievement) => {
+            const progressPercent = Math.min((achievement.progress / achievement.target) * 100, 100);
+            return (
+              <div 
+                key={achievement.id} 
+                className={`achievement-card ${achievement.unlocked ? 'achievement-card--unlocked' : 'achievement-card--locked'}`}
+              >
+                <div className="achievement-card__icon">
+                  {achievement.icon}
+                  {!achievement.unlocked && (
+                    <div className="achievement-card__lock">🔒</div>
+                  )}
+                </div>
+                <div className="achievement-card__info">
+                  <div className="achievement-card__title">{achievement.title}</div>
+                  <div className="achievement-card__description">{achievement.description}</div>
+                  {!achievement.unlocked && (
+                    <div className="achievement-card__progress">
+                      <div className="achievement-card__progress-bar">
+                        <div 
+                          className="achievement-card__progress-fill" 
+                          style={{ width: `${progressPercent}%` }}
+                        />
+                      </div>
+                      <span className="achievement-card__progress-text">
+                        {Math.round(progressPercent)}%
+                      </span>
                     </div>
-                    <span className="achievement-card__progress-text">
-                      {Math.round(achievement.progress)}%
-                    </span>
-                  </div>
-                )}
-                {achievement.unlocked && achievement.unlockedAt && (
-                  <div className="achievement-card__date">
-                    Получено: {new Date(achievement.unlockedAt).toLocaleDateString('ru-RU')}
-                  </div>
-                )}
+                  )}
+                  {achievement.unlocked && achievement.unlockedAt && (
+                    <div className="achievement-card__date">
+                      Получено: {new Date(achievement.unlockedAt).toLocaleDateString('ru-RU')}
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       )}
 

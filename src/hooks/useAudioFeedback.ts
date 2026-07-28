@@ -1,10 +1,5 @@
-// src/hooks/useAudioFeedback.ts (упрощаем, убираем возможные ошибки)
 import { useCallback, useRef } from 'react';
 
-/**
- * Hook for audio feedback during breathing phases.
- * Uses Web Audio API for simple beep sounds without needing audio files.
- */
 export function useAudioFeedback() {
   const audioContextRef = useRef<AudioContext | null>(null);
 
@@ -40,7 +35,6 @@ export function useAudioFeedback() {
       oscillator.start(ctx.currentTime);
       oscillator.stop(ctx.currentTime + duration);
     } catch {
-      // Silently fail - audio is not critical
     }
   }, [getAudioContext]);
 

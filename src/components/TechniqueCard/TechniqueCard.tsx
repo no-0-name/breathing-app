@@ -1,4 +1,3 @@
-// src/components/TechniqueCard/TechniqueCard.tsx
 import './TechniqueCard.css';
 import type { BreathingTechnique } from '../../types/breathing.types';
 import { getLevelColor, getLevelLabel } from '../../data/levels';
@@ -11,28 +10,7 @@ interface TechniqueCardProps {
   masteryLevel?: number;
 }
 
-export function TechniqueCard({ technique, onSelect, masteryLevel = 0 }: TechniqueCardProps) {
-  const getMasteryLabel = (level: number) => {
-    if (level === 0) return 'Не изучена';
-    if (level < 25) return 'Начинающий';
-    if (level < 50) return 'Знаком';
-    if (level < 75) return 'Уверен';
-    if (level < 100) return 'Продвинутый';
-    return 'Мастер';
-  };
-
-  const getMasteryEmoji = (level: number) => {
-    if (level === 0) return '🌱';
-    if (level < 25) return '📖';
-    if (level < 50) return '🌿';
-    if (level < 75) return '🌳';
-    if (level < 100) return '🌟';
-    return '🧘';
-  };
-
-  // Показываем прогресс только если есть хоть какой-то прогресс
-  const showMastery = masteryLevel > 0;
-
+export function TechniqueCard({ technique, onSelect }: TechniqueCardProps) {
   return (
     <button
       className="technique-card"
@@ -50,32 +28,6 @@ export function TechniqueCard({ technique, onSelect, masteryLevel = 0 }: Techniq
             {technique.phases.length} {pluralizeRu(technique.phases.length, ['фаза', 'фазы', 'фаз'])} дыхания
           </span>
         </div>
-        
-        {/* Прогресс-бар мастерства - показываем только если есть прогресс */}
-        {showMastery && (
-          <div className="technique-card__mastery">
-            <div className="technique-card__mastery-header">
-              <span className="technique-card__mastery-icon">
-                {getMasteryEmoji(masteryLevel)}
-              </span>
-              <span className="technique-card__mastery-label">
-                {getMasteryLabel(masteryLevel)}
-              </span>
-              <span className="technique-card__mastery-percent">
-                {Math.round(masteryLevel)}%
-              </span>
-            </div>
-            <div className="technique-card__mastery-bar">
-              <div 
-                className="technique-card__mastery-fill" 
-                style={{ 
-                  width: `${Math.min(masteryLevel, 100)}%`,
-                  background: `linear-gradient(90deg, ${getLevelColor(technique.level)}, ${getLevelColor(technique.level)}cc)`
-                }}
-              />
-            </div>
-          </div>
-        )}
       </div>
     </button>
   );
