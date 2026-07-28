@@ -1,9 +1,8 @@
-/* src/components/TechniqueDetail/TechniqueDetail.css */
 .technique-detail {
   display: flex;
   flex-direction: column;
   gap: var(--space-5);
-  padding: var(--space-4) var(--space-3);
+  padding: var(--space-4) var(--space-3) calc(var(--space-8) + env(safe-area-inset-bottom));
   flex: 1;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
@@ -11,9 +10,6 @@
   max-width: 100%;
 }
 
-/* Заголовок ближе к кнопке «домой»: не центрируем на всю строку, а ставим
-   сразу рядом с кнопкой — на этой странице заголовок обычно длиннее и
-   раньше визуально «убегал» от кнопки к центру экрана. */
 .technique-detail .screen-header {
   gap: var(--space-1);
 }
@@ -23,7 +19,6 @@
   justify-self: start;
 }
 
-/* ===== Вступление: акцентная полоса + описание ===== */
 .technique-detail__intro {
   display: flex;
   gap: var(--space-4);
@@ -69,7 +64,6 @@
   margin-bottom: var(--space-3);
 }
 
-/* ===== Схема цикла: дыхательный «таймлайн» ===== */
 .technique-detail__phase-list {
   list-style: none;
   margin: 0;
@@ -87,8 +81,6 @@
   gap: var(--space-3);
 }
 
-/* Линия соединяет точку этой фазы со следующей — length рассчитан от
-   фактической высоты элемента, поэтому не «плывёт» на переносе текста. */
 .technique-detail__phase:not(:last-child)::before {
   content: '';
   position: absolute;
@@ -163,13 +155,13 @@
   line-height: 1.5;
 }
 
-/* ===== Подвал: чип с циклами + кнопка старта ===== */
 .technique-detail__footer {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: var(--space-3);
   margin-top: var(--space-1);
+  margin-bottom: var(--space-2);
 }
 
 .technique-detail__cycles {
@@ -205,6 +197,7 @@
   width: 100%;
   cursor: pointer;
   box-shadow: 0 10px 24px -14px color-mix(in srgb, var(--accent, var(--color-accent)) 70%, transparent);
+  margin-bottom: var(--space-2);
 }
 
 .technique-detail__start-button svg {
@@ -217,7 +210,6 @@
   transform: scale(0.98);
 }
 
-/* ===== Плавное появление контента при открытии страницы ===== */
 @keyframes technique-detail-fade-in {
   from {
     opacity: 0;
@@ -264,14 +256,21 @@
 .technique-detail__phase:nth-child(5) { animation-delay: 460ms; }
 .technique-detail__phase:nth-child(6) { animation-delay: 520ms; }
 
-/* ===== МОБИЛЬНАЯ АДАПТАЦИЯ ===== */
 @media (max-width: 480px) {
   .technique-detail {
-    padding: var(--space-3) var(--space-2);
+    padding: var(--space-3) var(--space-2) calc(var(--space-7) + env(safe-area-inset-bottom));
     gap: var(--space-4);
   }
 
   .technique-detail__phase-content {
     padding: var(--space-2) var(--space-3);
+  }
+
+  .technique-detail__footer {
+    margin-bottom: var(--space-1);
+  }
+
+  .technique-detail__start-button {
+    margin-bottom: var(--space-1);
   }
 }

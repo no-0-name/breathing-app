@@ -3,6 +3,7 @@ import { useStatistics } from '../../hooks/useStatistics';
 import { useAchievements } from '../../hooks/useAchievements';
 import { getTechniqueById } from '../../data/techniques';
 import { ScreenHeader } from '../ScreenHeader/ScreenHeader';
+import { useState } from 'react';
 
 interface ProfileScreenProps {
   onGoHome: () => void;
@@ -19,21 +20,21 @@ export function ProfileScreen({ onGoHome }: ProfileScreenProps) {
     favoriteTechnique,
   } = stats;
 
+  const [showAllSessions, setShowAllSessions] = useState(false);
+
   let favoriteName = '—';
   if (favoriteTechnique) {
     const tech = getTechniqueById(favoriteTechnique);
     favoriteName = tech?.title || favoriteTechnique;
   }
 
-  const recentSessions = [...sessions]
-    .sort((a, b) => b.timestamp - a.timestamp)
-    .slice(0, 5);
+  const sortedSessions = [...sessions].sort((a, b) => b.timestamp - a.timestamp);
+  const displayedSessions = showAllSessions ? sortedSessions : sortedSessions.slice(0, 5);
 
   return (
     <div className="profile-screen">
       <ScreenHeader title="Мой прогресс" onGoHome={onGoHome} />
 
-      {/* СТАТИСТИКА */}
       <div className="profile-screen__grid">
         <div className="profile-stat">
           <div className="profile-stat__value">{totalSessions}</div>
@@ -70,12 +71,21 @@ export function ProfileScreen({ onGoHome }: ProfileScreenProps) {
         </div>
       </div>
 
-      {/* ПОСЛЕДНИЕ СЕССИИ */}
-      {recentSessions.length > 0 && (
+      {sessions.length > 0 && (
         <div className="profile-screen__recent">
-          <h3 className="profile-screen__section-title">Последние сессии</h3>
+          <div className="profile-screen__recent-header">
+            <h3 className="profile-screen__section-title">Последние сессии</h3>
+            {sessions.length > 5 && (
+              <button
+                className="profile-screen__toggle"
+                onClick={() => setShowAllSessions(!showAllSessions)}
+              >
+                {showAllSessions ? 'Скрыть' : `Показать все (${sessions.length})`}
+              </button>
+            )}
+          </div>
           <div className="profile-screen__recent-list">
-            {recentSessions.map((session) => {
+            {displayedSessions.map((session) => {
               const date = new Date(session.timestamp);
               const dateStr = date.toLocaleDateString('ru-RU', {
                 day: 'numeric',
@@ -103,7 +113,6 @@ export function ProfileScreen({ onGoHome }: ProfileScreenProps) {
         </div>
       )}
 
-      {/* ВСЕ ДОСТИЖЕНИЯ (полный список) */}
       <section className="profile-screen__achievements">
         <h3 className="profile-screen__section-title">Все достижения</h3>
         {achievements.length === 0 ? (
