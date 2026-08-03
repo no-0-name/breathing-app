@@ -1,4 +1,3 @@
-// src/components/ScreenHeader/ScreenHeader.tsx
 import './ScreenHeader.css';
 import { IconButton } from '../IconButton/IconButton';
 import { HomeIcon } from '../IconButton/icons';

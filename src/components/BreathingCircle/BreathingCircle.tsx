@@ -8,11 +8,6 @@ interface BreathingCircleProps {
   accentColor: string;
 }
 
-/**
- * Purely presentational: it just reflects the phase it is given.
- * The animation duration is derived from the phase length so the circle's
- * motion is always in sync with the actual countdown (no hard-coded values).
- */
 export function BreathingCircle({ phase, secondsLeft, status, accentColor }: BreathingCircleProps) {
   const isExpanded = phase.kind === 'inhale' || phase.kind === 'holdFull';
   const isRunning = status === 'running';

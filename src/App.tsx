@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { BREATHING_TECHNIQUES, getTechniqueById } from './data/techniques';
 import { useTelegramWebApp } from './hooks/useTelegramWebApp';
 import { useTheme } from './hooks/useTheme';
+import { useThemeColor } from './hooks/useThemeColor';
 import { TechniqueList } from './components/TechniqueList/TechniqueList';
 import { TechniqueDetail } from './components/TechniqueDetail/TechniqueDetail';
 import { SessionScreen } from './components/SessionScreen/SessionScreen';
@@ -18,6 +19,7 @@ export function App() {
   const { setBackButton, hapticSelection } = useTelegramWebApp();
 
   useTheme();
+  useThemeColor();
 
   useEffect(() => {
     if (screen.name === 'list') {

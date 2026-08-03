@@ -1,8 +1,3 @@
-/**
- * Minimal inline SVG icon set. Kept in one place instead of pulling in an
- * icon library, since the app only needs a handful of glyphs (KISS).
- */
-
 export function PlayIcon() {
   return (
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -90,3 +85,22 @@ export function ProfileIcon() {
     </svg>
   );
 }
+
+export function ColorIcon() {
+  return (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M12 22a7 7 0 0 0 7-7c0-4.3-7-11-7-11S5 10.7 5 15a7 7 0 0 0 7 7Z" />
+    </svg>
+  );
+}
+

@@ -1,5 +1,5 @@
+// src/data/techniques.ts
 import type { BreathingTechnique } from '../types/breathing.types';
-
 
 export const BREATHING_TECHNIQUES: BreathingTechnique[] = [
   {
@@ -133,6 +133,7 @@ export const BREATHING_TECHNIQUES: BreathingTechnique[] = [
     ],
   },
 
+  // === Intermediate техники ===
   {
     id: '4-7-8',
     title: 'Дыхание 4-7-8',
@@ -271,6 +272,7 @@ export const BREATHING_TECHNIQUES: BreathingTechnique[] = [
     ],
   },
 
+  // === ПРЕМИУМ ТЕХНИКИ (доступны только после покупки) ===
   {
     id: 'alternate-nostril',
     title: 'Попеременное дыхание через ноздри',
@@ -283,6 +285,7 @@ export const BREATHING_TECHNIQUES: BreathingTechnique[] = [
     benefits: ['Балансирует ум', 'Улучшает концентрацию', 'Успокаивает перед медитацией'],
     level: 'advanced',
     recommendedCycles: 6,
+    isPremium: true,
     phases: [
       { kind: 'inhale', durationSec: 4, label: 'Вдох (левая)', hint: 'Зажмите правую ноздрю, вдыхайте через левую' },
       { kind: 'holdFull', durationSec: 4, label: 'Задержка', hint: 'Зажмите обе ноздри' },
@@ -303,6 +306,7 @@ export const BREATHING_TECHNIQUES: BreathingTechnique[] = [
     benefits: ['Тренирует контроль дыхания', 'Углубляет спокойствие', 'Развивает устойчивость к стрессу'],
     level: 'advanced',
     recommendedCycles: 8,
+    isPremium: true,
     phases: [
       { kind: 'inhale', durationSec: 6, label: 'Вдох', hint: 'Вдыхайте медленно и ровно' },
       { kind: 'holdFull', durationSec: 6, label: 'Задержка', hint: 'Держите дыхание без напряжения' },
@@ -321,6 +325,7 @@ export const BREATHING_TECHNIQUES: BreathingTechnique[] = [
     benefits: ['Укрепляет иммунитет', 'Повышает энергию', 'Улучшает кровообращение'],
     level: 'advanced',
     recommendedCycles: 5,
+    isPremium: true,
     phases: [
       { kind: 'inhale', durationSec: 2, label: 'Глубокий вдох', hint: 'Быстрый глубокий вдох через нос' },
       { kind: 'exhale', durationSec: 2, label: 'Выдох', hint: 'Резкий выдох через рот' },
@@ -338,6 +343,7 @@ export const BREATHING_TECHNIQUES: BreathingTechnique[] = [
     benefits: ['Балансирует энергию', 'Очищает энергетические каналы', 'Улучшает контроль дыхания'],
     level: 'advanced',
     recommendedCycles: 4,
+    isPremium: true,
     phases: [
       { kind: 'inhale', durationSec: 6, label: 'Вдох (левая)', hint: 'Зажмите правую ноздрю, вдыхайте через левую' },
       { kind: 'holdFull', durationSec: 12, label: 'Длинная задержка', hint: 'Зажмите обе ноздри' },
@@ -358,6 +364,7 @@ export const BREATHING_TECHNIQUES: BreathingTechnique[] = [
     benefits: ['Очищает дыхательные пути', 'Повышает энергию', 'Улучшает работу лёгких'],
     level: 'advanced',
     recommendedCycles: 6,
+    isPremium: true,
     phases: [
       { kind: 'inhale', durationSec: 1, label: 'Вдох', hint: 'Пассивный вдох через нос' },
       { kind: 'exhale', durationSec: 1, label: 'Выдох', hint: 'Активный выдох животом' },
@@ -374,6 +381,7 @@ export const BREATHING_TECHNIQUES: BreathingTechnique[] = [
     benefits: ['Очищает ум', 'Улучшает концентрацию', 'Повышает энергию'],
     level: 'advanced',
     recommendedCycles: 4,
+    isPremium: true,
     phases: [
       { kind: 'inhale', durationSec: 2, label: 'Вдох', hint: 'Быстрый вдох через нос' },
       { kind: 'holdFull', durationSec: 8, label: 'Задержка', hint: 'Длинная задержка' },
@@ -391,6 +399,7 @@ export const BREATHING_TECHNIQUES: BreathingTechnique[] = [
     benefits: ['Максимально насыщает кислородом', 'Улучшает кровообращение', 'Развивает контроль дыхания'],
     level: 'advanced',
     recommendedCycles: 8,
+    isPremium: true,
     phases: [
       { kind: 'inhale', durationSec: 6, label: 'Глубокий вдох', hint: 'Раскрывайте лёгкие полностью' },
       { kind: 'holdFull', durationSec: 4, label: 'Пауза', hint: 'Держите дыхание' },
@@ -409,6 +418,7 @@ export const BREATHING_TECHNIQUES: BreathingTechnique[] = [
     benefits: ['Очищает энергетические каналы', 'Готовит к медитации', 'Контролирует ум'],
     level: 'advanced',
     recommendedCycles: 4,
+    isPremium: true,
     phases: [
       { kind: 'inhale', durationSec: 5, label: 'Вдох', hint: 'Длинный вдох через нос' },
       { kind: 'holdFull', durationSec: 10, label: 'Длинная задержка', hint: 'Задержите дыхание' },
@@ -426,6 +436,7 @@ export const BREATHING_TECHNIQUES: BreathingTechnique[] = [
     benefits: ['Очищает лёгкие', 'Стимулирует нервную систему', 'Поднимает энергию'],
     level: 'advanced',
     recommendedCycles: 4,
+    isPremium: true,
     phases: [
       { kind: 'inhale', durationSec: 2, label: 'Вдох', hint: 'Мощный вдох животом' },
       { kind: 'exhale', durationSec: 2, label: 'Выдох', hint: 'Мощный выдох животом' },
@@ -442,15 +453,95 @@ export const BREATHING_TECHNIQUES: BreathingTechnique[] = [
     benefits: ['Охлаждает тело', 'Успокаивает нервную систему', 'Снижает жажду'],
     level: 'advanced',
     recommendedCycles: 6,
+    isPremium: true,
     phases: [
       { kind: 'inhale', durationSec: 6, label: 'Вдох (язык)', hint: 'Сверните язык трубочкой, вдыхайте через неё' },
       { kind: 'holdFull', durationSec: 2, label: 'Пауза', hint: 'Короткая задержка' },
       { kind: 'exhale', durationSec: 8, label: 'Выдох (нос)', hint: 'Выдыхайте медленно через нос' },
     ],
   },
+  // === ДОБАВЛЕННЫЕ ПРЕМИУМ ТЕХНИКИ (доводим до 15) ===
+  {
+    id: 'clarity-breath',
+    title: 'Дыхание для ясности',
+    shortDescription: 'Очищает ум и улучшает фокус',
+    fullDescription:
+      'Техника, которая помогает избавиться от ментального шума и обрести ясность. Короткие вдохи и длинные выдохи активируют парасимпатическую систему, успокаивая ум.',
+    benefits: ['Очищает ум', 'Улучшает концентрацию', 'Снимает ментальную усталость'],
+    level: 'advanced',
+    recommendedCycles: 6,
+    isPremium: true,
+    phases: [
+      { kind: 'inhale', durationSec: 3, label: 'Вдох', hint: 'Быстрый вдох через нос' },
+      { kind: 'holdFull', durationSec: 2, label: 'Пауза', hint: 'Короткая задержка' },
+      { kind: 'exhale', durationSec: 6, label: 'Выдох', hint: 'Длинный выдох через рот' },
+    ],
+  },
+  {
+    id: 'panic-relief',
+    title: 'Дыхание при панике',
+    shortDescription: 'Быстрое снятие острой тревоги',
+    fullDescription:
+      'Специальная техника для экстренных ситуаций, когда тревога или паника нарастают. Основана на удлинённом выдохе и мягкой задержке, что быстро снижает уровень кортизола.',
+    benefits: ['Снимает панику', 'Быстро успокаивает', 'Возвращает контроль'],
+    level: 'advanced',
+    recommendedCycles: 4,
+    isPremium: true,
+    phases: [
+      { kind: 'inhale', durationSec: 2, label: 'Вдох', hint: 'Мягкий вдох через нос' },
+      { kind: 'holdFull', durationSec: 1, label: 'Пауза', hint: 'Короткая задержка' },
+      { kind: 'exhale', durationSec: 8, label: 'Выдох', hint: 'Очень медленный выдох через рот' },
+    ],
+  },
+  {
+    id: 'energy-boost',
+    title: 'Энергетический подъем',
+    shortDescription: 'Быстрая зарядка энергией за 2 минуты',
+    fullDescription:
+      'Мощная техника для поднятия тонуса, когда чувствуется спад энергии. Серия быстрых вдохов и активных выдохов стимулирует симпатическую нервную систему.',
+    benefits: ['Поднимает энергию', 'Улучшает настроение', 'Бодрит'],
+    level: 'advanced',
+    recommendedCycles: 8,
+    isPremium: true,
+    phases: [
+      { kind: 'inhale', durationSec: 2, label: 'Вдох', hint: 'Резкий вдох через нос' },
+      { kind: 'exhale', durationSec: 2, label: 'Выдох', hint: 'Активный выдох через рот' },
+    ],
+  },
+  {
+    id: 'meditation-prep',
+    title: 'Дыхание перед медитацией',
+    shortDescription: 'Настраивает ум на глубокую медитацию',
+    fullDescription:
+      'Техника, которая готовит сознание к длительной медитации. Удлинённые вдохи и выдохи с паузами помогают войти в состояние покоя и отвлечься от мыслей.',
+    benefits: ['Готовит к медитации', 'Успокаивает ум', 'Углубляет осознанность'],
+    level: 'advanced',
+    recommendedCycles: 6,
+    isPremium: true,
+    phases: [
+      { kind: 'inhale', durationSec: 5, label: 'Вдох', hint: 'Медленный вдох через нос' },
+      { kind: 'holdFull', durationSec: 3, label: 'Пауза', hint: 'Задержите дыхание' },
+      { kind: 'exhale', durationSec: 7, label: 'Выдох', hint: 'Очень медленный выдох через нос' },
+    ],
+  },
+  {
+    id: 'creativity-flow',
+    title: 'Дыхание для творчества',
+    shortDescription: 'Активирует правое полушарие и вдохновение',
+    fullDescription:
+      'Техника, стимулирующая творческое мышление. Ритмичное дыхание с короткими задержками синхронизирует полушария и открывает поток идей.',
+    benefits: ['Развивает креативность', 'Улучшает воображение', 'Снимает блоки'],
+    level: 'advanced',
+    recommendedCycles: 6,
+    isPremium: true,
+    phases: [
+      { kind: 'inhale', durationSec: 4, label: 'Вдох', hint: 'Вдох через нос' },
+      { kind: 'holdFull', durationSec: 4, label: 'Задержка', hint: 'Пауза для идей' },
+      { kind: 'exhale', durationSec: 4, label: 'Выдох', hint: 'Выдох через рот' },
+    ],
+  },
 ];
 
-/** Simple lookup helper — keeps "find by id" logic in one place (DRY). */
 export function getTechniqueById(id: string): BreathingTechnique | undefined {
   return BREATHING_TECHNIQUES.find((technique) => technique.id === id);
 }

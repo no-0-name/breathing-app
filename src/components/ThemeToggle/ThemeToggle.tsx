@@ -21,11 +21,11 @@ export function ThemeToggle({ className = '' }: ThemeToggleProps) {
       aria-label={isLight ? 'Переключить на тёмную тему' : 'Переключить на светлую тему'}
       title={isLight ? 'Переключить на тёмную тему' : 'Переключить на светлую тему'}
     >
-      <svg 
-        width="20" 
-        height="20" 
-        viewBox="0 0 24 24" 
-        fill="none" 
+      <svg
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
         className="theme-toggle__icon"
         aria-hidden="true"
       >

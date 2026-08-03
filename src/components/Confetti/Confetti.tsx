@@ -33,17 +33,6 @@ function createPieces(): ConfettiPiece[] {
   });
 }
 
-/**
- * A one-shot confetti burst that gives the person a visible "you did it"
- * moment when a session finishes.
- *
- * Purely decorative: it sits on top of everything, ignores pointer events,
- * and never blocks interaction. Pieces are generated once per mount via
- * useMemo, so re-renders of the parent don't restart or multiply the burst.
- * The global `prefers-reduced-motion` rule in styles/global.css collapses
- * all animation durations app-wide, so this automatically becomes a brief,
- * non-distracting flash for people who have that preference set.
- */
 export function Confetti() {
   const pieces = useMemo(createPieces, []);
 

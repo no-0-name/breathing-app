@@ -20,7 +20,7 @@
   border-radius: var(--radius-md);
   padding: var(--space-4) var(--space-3);
   text-align: center;
-  transition: transform 0.15s ease;
+  transition: transform 0.15s ease, border-color 0.15s ease;
 }
 
 .profile-stat:hover {
@@ -42,7 +42,7 @@
 }
 
 .profile-stat__value--accent {
-  color: var(--accent, var(--color-accent));
+  color: var(--color-accent);
 }
 
 .profile-stat__sub {
@@ -55,7 +55,9 @@
 .profile-screen__section-title {
   font-size: 16px;
   font-weight: 500;
-  color: var(--color-text-primary);
+  color: var(--color-accent);
+  padding-bottom: 4px;
+  display: inline-block;
   margin: var(--space-4) 0 var(--space-2);
 }
 
@@ -73,11 +75,11 @@
   cursor: pointer;
   padding: var(--space-1) var(--space-2);
   border-radius: var(--radius-sm);
-  transition: background 0.15s ease;
+  transition: background 0.15s ease, color 0.15s ease;
 }
 
 .profile-screen__toggle:hover {
-  background: var(--color-surface-raised);
+  background: color-mix(in srgb, var(--color-accent) 15%, transparent);
 }
 
 .profile-screen__recent-list {
@@ -122,11 +124,12 @@
   background: var(--color-surface);
   border-radius: var(--radius-sm);
   border: 1px solid var(--color-border);
-  transition: border-color 0.2s ease;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .profile-achievement--unlocked {
   border-color: var(--color-accent);
+  box-shadow: 0 0 0 1px var(--color-accent);
 }
 
 .profile-achievement--locked {
@@ -208,4 +211,55 @@
 .profile-screen__empty-hint {
   font-size: 14px;
   opacity: 0.7;
+}
+
+.profile-screen__actions {
+  margin-top: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.profile-screen__premium-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  background: linear-gradient(135deg, var(--color-accent), color-mix(in srgb, var(--color-accent) 80%, #000));
+  color: var(--color-bg);
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 16px color-mix(in srgb, var(--color-accent) 40%, transparent);
+}
+
+.profile-screen__premium-btn:active {
+  transform: scale(0.96);
+}
+
+.profile-screen__premium-btn:hover {
+  box-shadow: 0 6px 24px color-mix(in srgb, var(--color-accent) 60%, transparent);
+}
+
+.premium-btn__icon {
+  font-size: 20px;
+}
+
+.premium-btn__text {
+  flex: 1;
+  text-align: center;
+}
+
+.premium-btn__badge {
+  background: rgba(255,255,255,0.2);
+  padding: var(--space-1) var(--space-3);
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 500;
+  backdrop-filter: blur(4px);
 }

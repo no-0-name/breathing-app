@@ -1,9 +1,14 @@
 import './ProfileScreen.css';
+import { useState } from 'react';
 import { useStatistics } from '../../hooks/useStatistics';
 import { useAchievements } from '../../hooks/useAchievements';
+import { useTelegramPayments } from '../../hooks/useTelegramPayments';
 import { getTechniqueById } from '../../data/techniques';
 import { ScreenHeader } from '../ScreenHeader/ScreenHeader';
-import { useState } from 'react';
+import { PremiumOffer } from '../PremiumOffer/PremiumOffer';
+import { DonateButton } from '../DonateButton/DonateButton';
+import { ActivityChart } from '../ActivityChart/ActivityChart';
+import { ThemeCustomizer } from '../ThemeCustomizer/ThemeCustomizer';
 
 interface ProfileScreenProps {
   onGoHome: () => void;
@@ -12,6 +17,10 @@ interface ProfileScreenProps {
 export function ProfileScreen({ onGoHome }: ProfileScreenProps) {
   const { stats } = useStatistics();
   const { unlockedCount, totalAchievements, achievements } = useAchievements();
+  const { isPremium } = useTelegramPayments();
+  const [showPremium, setShowPremium] = useState(false);
+  const [showAllSessions, setShowAllSessions] = useState(false);
+
   const {
     sessions,
     totalSessions,
@@ -19,8 +28,6 @@ export function ProfileScreen({ onGoHome }: ProfileScreenProps) {
     streakDays,
     favoriteTechnique,
   } = stats;
-
-  const [showAllSessions, setShowAllSessions] = useState(false);
 
   let favoriteName = '—';
   if (favoriteTechnique) {
@@ -71,46 +78,8 @@ export function ProfileScreen({ onGoHome }: ProfileScreenProps) {
         </div>
       </div>
 
-      {sessions.length > 0 && (
-        <div className="profile-screen__recent">
-          <div className="profile-screen__recent-header">
-            <h3 className="profile-screen__section-title">Последние сессии</h3>
-            {sessions.length > 5 && (
-              <button
-                className="profile-screen__toggle"
-                onClick={() => setShowAllSessions(!showAllSessions)}
-              >
-                {showAllSessions ? 'Скрыть' : `Показать все (${sessions.length})`}
-              </button>
-            )}
-          </div>
-          <div className="profile-screen__recent-list">
-            {displayedSessions.map((session) => {
-              const date = new Date(session.timestamp);
-              const dateStr = date.toLocaleDateString('ru-RU', {
-                day: 'numeric',
-                month: 'short',
-              });
-              const timeStr = date.toLocaleTimeString('ru-RU', {
-                hour: '2-digit',
-                minute: '2-digit',
-              });
-              const duration = Math.ceil(session.durationSeconds / 60);
-              return (
-                <div key={session.id} className="recent-session">
-                  <span className="recent-session__name">
-                    {session.techniqueTitle}
-                  </span>
-                  <span className="recent-session__meta">
-                    <span>{duration} мин</span>
-                    <span>•</span>
-                    <span>{dateStr} {timeStr}</span>
-                  </span>
-                </div>
-              );
-            })}
-          </div>
-        </div>
+      {sessions.length > 0 && isPremium && (
+        <ActivityChart />
       )}
 
       <section className="profile-screen__achievements">
@@ -156,6 +125,24 @@ export function ProfileScreen({ onGoHome }: ProfileScreenProps) {
           </div>
         )}
       </section>
+
+      <div className="profile-screen__actions">
+        {!isPremium && (
+          <button
+            className="profile-screen__premium-btn"
+            onClick={() => setShowPremium(true)}
+          >
+            <span className="premium-btn__icon">⭐</span>
+            <span className="premium-btn__text">Получить премиум</span>
+            <span className="premium-btn__badge">199</span>
+          </button>
+        )}
+        <DonateButton />
+      </div>
+
+      {isPremium && <ThemeCustomizer />}
+
+      {showPremium && <PremiumOffer onClose={() => setShowPremium(false)} />}
 
       {sessions.length === 0 && (
         <div className="profile-screen__empty">

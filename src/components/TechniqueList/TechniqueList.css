@@ -1,4 +1,3 @@
-/* src/components/TechniqueList/TechniqueList.css (обновлённый) */
 .technique-list {
   display: flex;
   flex-direction: column;
@@ -54,7 +53,6 @@
   gap: var(--space-3);
 }
 
-/* Responsive adjustments */
 @media (max-width: 400px) {
   .technique-list__title {
     font-size: 24px;

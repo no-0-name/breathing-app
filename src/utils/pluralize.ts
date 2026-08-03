@@ -1,7 +1,3 @@
-/**
- * Picks the correct Russian plural form for a count.
- * `forms` = [one, few, many], e.g. ['фаза', 'фазы', 'фаз'] for 1, 2, 5.
- */
 export function pluralizeRu(count: number, forms: [string, string, string]): string {
   const mod10 = count % 10;
   const mod100 = count % 100;

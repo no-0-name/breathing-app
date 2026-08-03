@@ -1,4 +1,3 @@
-// src/components/TechniqueDetail/TechniqueDetail.tsx
 import './TechniqueDetail.css';
 import type { BreathingTechnique } from '../../types/breathing.types';
 import { getLevelColor, getLevelLabel } from '../../data/levels';
@@ -33,8 +32,6 @@ export function TechniqueDetail({ technique, onStart, onGoHome }: TechniqueDetai
 
       <section className="technique-detail__phases">
         <h2 className="technique-detail__section-title">Схема одного цикла</h2>
-        {/* Вертикальная линия связывает фазы в единый ритм вдоха и выдоха —
-            это не декорация: фазы действительно идут друг за другом по кругу. */}
         <ol className="technique-detail__phase-list">
           {technique.phases.map((phase, index) => (
             <li key={index} className="technique-detail__phase">

@@ -121,18 +121,14 @@ export function SessionScreen({ technique, onGoHome }: SessionScreenProps) {
         </div>
       ) : (
         <div className="session-screen__controls">
-          <IconButton
-            aria-label="Сбросить"
-            onClick={reset}
-            style={{ '--icon-button-size': '52px' } as React.CSSProperties}
-          >
+          <IconButton aria-label="Сбросить" onClick={reset}>
             <ResetIcon />
           </IconButton>
           <IconButton
             aria-label={isRunning ? 'Пауза' : 'Начать'}
             variant="solid"
             onClick={isRunning ? pause : start}
-            style={{ '--icon-button-size': '52px' } as React.CSSProperties}
+            style={{ '--icon-button-size': '60px' } as React.CSSProperties}
           >
             {isRunning ? <PauseIcon /> : <PlayIcon />}
           </IconButton>

@@ -5,6 +5,8 @@ import { ThemeToggle } from '../ThemeToggle/ThemeToggle';
 import { Achievements } from '../Achievements/Achievements';
 import { IconButton } from '../IconButton/IconButton';
 import { ProfileIcon } from '../IconButton/icons';
+import { useTelegramPayments } from '../../hooks/useTelegramPayments';
+import { getLevelLabel } from '../../data/levels';
 
 interface TechniqueListProps {
   techniques: BreathingTechnique[];
@@ -15,6 +17,8 @@ interface TechniqueListProps {
 const LEVEL_ORDER: TechniqueLevel[] = ['beginner', 'intermediate', 'advanced'];
 
 export function TechniqueList({ techniques, onSelectTechnique, onNavigateToProfile }: TechniqueListProps) {
+  const { isPremium } = useTelegramPayments();
+
   const groupedTechniques = techniques.reduce((acc, technique) => {
     const level = technique.level;
     if (!acc[level]) acc[level] = [];
@@ -56,13 +60,47 @@ export function TechniqueList({ techniques, onSelectTechnique, onNavigateToProfi
 
           return (
             <div key={level} className="technique-list__category">
-              {levelTechniques.map((technique) => (
-                <TechniqueCard
-                  key={technique.id}
-                  technique={technique}
-                  onSelect={onSelectTechnique}
-                />
-              ))}
+              {levelTechniques.map((technique) => {
+                if (technique.isPremium && !isPremium) {
+                  return (
+                    <div key={technique.id} className="technique-card technique-card--locked">
+                      <div className="technique-card__body">
+                        <h3 className="technique-card__title">{technique.title}</h3>
+                        <p className="technique-card__description">{technique.shortDescription}</p>
+                        <div className="technique-card__meta">
+                          <span className="badge badge--locked">
+                            <span className="badge__icon">🔒</span>
+                            Премиум
+                          </span>
+                          <span className="technique-card__phases-count">
+                            {technique.phases.length} фаз дыхания
+                          </span>
+                          <span className="badge badge--level">
+                            {getLevelLabel(technique.level)}
+                          </span>
+                        </div>
+                        <button
+                          className="technique-card__unlock-btn"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            onNavigateToProfile();
+                          }}
+                        >
+                          <span className="unlock-btn__icon">⭐</span>
+                          <span className="unlock-btn__text">Открыть за Stars</span>
+                        </button>
+                      </div>
+                    </div>
+                  );
+                }
+                return (
+                  <TechniqueCard
+                    key={technique.id}
+                    technique={technique}
+                    onSelect={onSelectTechnique}
+                  />
+                );
+              })}
             </div>
           );
         })}

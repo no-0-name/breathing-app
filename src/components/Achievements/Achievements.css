@@ -1,4 +1,3 @@
-/* src/components/Achievements/Achievements.css */
 .achievements {
   display: flex;
   flex-direction: column;
@@ -162,7 +161,6 @@
   background: var(--color-surface-raised);
 }
 
-/* src/components/Achievements/Achievements.css (добавить) */
 .achievements__loading {
   text-align: center;
   color: var(--color-text-secondary);
