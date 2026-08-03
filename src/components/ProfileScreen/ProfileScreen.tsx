@@ -19,7 +19,6 @@ export function ProfileScreen({ onGoHome }: ProfileScreenProps) {
   const { unlockedCount, totalAchievements, achievements } = useAchievements();
   const { isPremium } = useTelegramPayments();
   const [showPremium, setShowPremium] = useState(false);
-  const [showAllSessions, setShowAllSessions] = useState(false);
 
   const {
     sessions,
@@ -34,9 +33,6 @@ export function ProfileScreen({ onGoHome }: ProfileScreenProps) {
     const tech = getTechniqueById(favoriteTechnique);
     favoriteName = tech?.title || favoriteTechnique;
   }
-
-  const sortedSessions = [...sessions].sort((a, b) => b.timestamp - a.timestamp);
-  const displayedSessions = showAllSessions ? sortedSessions : sortedSessions.slice(0, 5);
 
   return (
     <div className="profile-screen">
