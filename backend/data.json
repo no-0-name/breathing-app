@@ -1,0 +1,14 @@
+{
+  "premiumUsers": [
+    "626867280"
+  ],
+  "userPurchases": {
+    "626867280": [
+      {
+        "productId": "premium",
+        "date": "2026-08-03T13:28:10.246Z",
+        "amount": 199
+      }
+    ]
+  }
+}
